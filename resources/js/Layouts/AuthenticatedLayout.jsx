@@ -9,8 +9,12 @@ export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+        <div className="min-h-screen linear-gradient(to bottom right, #e0f7fa, #b2ebf2, #c8e6c9)"style={{
+                 background: 'linear-gradient(to bottom right, #e0f7fa, #b2ebf2, #c8e6c9)',
+                }}>
+            <nav className=" border-b border-gray-100"style={{
+                 background: 'linear-gradient(to bottom right, #e0f7fa, #b2ebf2, #c8e6c9)',
+                }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -20,7 +24,7 @@ export default function Authenticated({ user, header, children }) {
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
@@ -91,7 +95,7 @@ export default function Authenticated({ user, header, children }) {
                 </div>
 
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                    <div className="pt-2 pb-3 space-y-1">
+                    <div className="pt-2 pb-3 space-y-1" >
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
@@ -121,5 +125,6 @@ export default function Authenticated({ user, header, children }) {
 
             <main>{children}</main>
         </div>
+        
     );
 }
