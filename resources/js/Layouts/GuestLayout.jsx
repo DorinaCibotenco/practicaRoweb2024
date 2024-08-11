@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/react';
 export default function Guest({ children }) {
     return (
         <div className="absolute inset-0 min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0" style={{
-                 background: 'linear-gradient(to bottom right, #e0f7fa, #b2ebf2, #c8e6c9)',
+                 background: 'linear-gradient(to bottom right,#D6E8EE, #97CADB,#018ABE)',
                 }}>  
             <div>
                 <Link href="/">

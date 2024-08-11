@@ -13,7 +13,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             <Head title="Welcome" />
             <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
             <div className="absolute inset-0" style={{
-                 background: 'linear-gradient(to bottom right, #e0f7fa, #b2ebf2, #c8e6c9)',
+                 background: 'linear-gradient(to bottom right, #D6E8EE, #97CADB,#018ABE)',
                 }}>
             
                 <div className="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
@@ -72,8 +72,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </header>
 
                         
-                        <footer className="py-16 text-center text-sm text-black dark:text-white/70" style={{
-                 background: 'linear-gradient(to bottom right, #a7f3d0, #99f6e4, #a5f3fc)',
+                        <footer className="py-8 px-10 text-center text-sm text-black dark:text-white/70" style={{
+                 background: 'linear-gradient(to bottom right, #5EFCE8,#736EFE)',
                 }}>
                         <div className='space-x-4 mb-4'>
                             <Link className='hover:underline' >BLOG</Link>

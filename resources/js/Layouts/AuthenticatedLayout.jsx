@@ -9,12 +9,10 @@ export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen linear-gradient(to bottom right, #e0f7fa, #b2ebf2, #c8e6c9)"style={{
-                 background: 'linear-gradient(to bottom right, #e0f7fa, #b2ebf2, #c8e6c9)',
+        <div className="min-h-screen"style={{
+                 background: 'linear-gradient(to bottom right, #D6E8EE, #97CADB,#018ABE)',
                 }}>
-            <nav className=" border-b border-gray-100"style={{
-                 background: 'linear-gradient(to bottom right, #e0f7fa, #b2ebf2, #c8e6c9)',
-                }}>
+            <nav className=" border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
