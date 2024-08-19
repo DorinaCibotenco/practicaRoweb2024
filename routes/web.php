@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,17 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('store/{category?}', [CategoryController::class, 'store'])->name('categories.store');
         Route::delete('delete/{category}', [CategoryController::class, 'delete'])->name('categories.delete');
     });
-});
+
+    Route::group([
+        'prefix' => 'products',
+    ], function () {
+        Route::get('/', [ProductController::class, 'list'])->name('products.list');
+        Route::get('/create', [ProductController::class, 'create'])->name('products.create');
+        Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('products.edit');
+        Route::post('/store/{product?}', [ProductController::class, 'store'])->name('products.store');
+        Route::delete('/delete/{product}', [ProductController::class, 'delete'])->name('products.delete');
+    });
+
+    });
 
 require __DIR__.'/auth.php';

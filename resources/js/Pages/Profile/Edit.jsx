@@ -27,6 +27,12 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                         <DeleteUserForm className="max-w-xl" />
                     </div>
                 </div>
+                <div className='flex justify-between items-center'>
+                <Link href={route('products.create')}className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all  hover:bg-emerald-600">
+                   Add New
+
+                </Link>
+                </div>
             </div>
         </AuthenticatedLayout>
     );

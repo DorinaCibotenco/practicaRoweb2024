@@ -8,7 +8,6 @@ import { Link } from '@inertiajs/react';
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
-    // Verifică dacă user este definit înainte de a încerca să accesezi proprietățile sale
     const userName = user?.name || 'Guest';
     const userEmail = user?.email || '';
 
@@ -36,10 +35,12 @@ export default function Authenticated({ user, header, children }) {
                                 </Link>
                                 <div className={'flex-1'}></div>
                                 <Link
-                                    href={route('profile.edit')}
+                                    href={route('products.create')}
                                     className="w-56 py-2 px-3 mx-auto text-white rounded hover:bg-blue-400 mb-2">
                                     Products
                                 </Link>
+                                
+
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
