@@ -8,11 +8,15 @@ import { Link } from '@inertiajs/react';
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
+    // Verifică dacă user este definit înainte de a încerca să accesezi proprietățile sale
+    const userName = user?.name || 'Guest';
+    const userEmail = user?.email || '';
+
     return (
-        <div className="min-h-screen"style={{
-                 background: 'linear-gradient(to bottom right, #D6E8EE, #97CADB,#018ABE)',
-                }}>
-            <nav className=" border-b border-gray-100">
+        <div className="min-h-screen" style={{
+            background: 'linear-gradient(to bottom right, #D6E8EE, #97CADB,#018ABE)',
+        }}>
+            <nav className="border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -20,9 +24,25 @@ export default function Authenticated({ user, header, children }) {
                                 <Link href="/">
                                     <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
+                                <Link
+                                    href={route('dashboard')}
+                                    className="w-56 py-2 px-3 mx-auto text-white rounded hover:bg-blue-400 mb-2">
+                                    Dashboard
+                                </Link>
+                                <Link
+                                    href={route('categories.list')}
+                                    className="w-56 py-2 px-3 mx-auto text-white rounded hover:bg-blue-400 mb-2">
+                                    Categories
+                                </Link>
+                                <div className={'flex-1'}></div>
+                                <Link
+                                    href={route('profile.edit')}
+                                    className="w-56 py-2 px-3 mx-auto text-white rounded hover:bg-blue-400 mb-2">
+                                    Products
+                                </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" >
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
@@ -38,7 +58,7 @@ export default function Authenticated({ user, header, children }) {
                                                 type="button"
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {user.name}
+                                                {userName}
 
                                                 <svg
                                                     className="ms-2 -me-0.5 h-4 w-4"
@@ -93,7 +113,7 @@ export default function Authenticated({ user, header, children }) {
                 </div>
 
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                    <div className="pt-2 pb-3 space-y-1" >
+                    <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
@@ -101,8 +121,8 @@ export default function Authenticated({ user, header, children }) {
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">{user.name}</div>
-                            <div className="font-medium text-sm text-gray-500">{user.email}</div>
+                            <div className="font-medium text-base text-gray-800">{userName}</div>
+                            <div className="font-medium text-sm text-gray-500">{userEmail}</div>
                         </div>
 
                         <div className="mt-3 space-y-1">
@@ -123,6 +143,5 @@ export default function Authenticated({ user, header, children }) {
 
             <main>{children}</main>
         </div>
-        
     );
 }

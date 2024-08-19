@@ -80,9 +80,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             <Link className='hover:underline' >EXPLORE</Link>
                             <Link className='hover:underline' >KNOW MORE</Link>
                             <Link className='hover:underline' >ABOUT</Link>
-                            <i class="fa-brands fa-instagram  hover:border-2 border-gray-950 p-1 rounded-full"></i>
-                            <i class="fa-brands fa-facebook hover:border-2 border-gray-950 p-1 rounded-full"></i>
-                            <i class="fa-solid fa-phone hover:border-2 border-gray-950 p-1 rounded-full"></i>
+                            <i className="fa-brands fa-instagram  hover:border-2 border-gray-950 p-1 rounded-full"></i>
+                            <i className="fa-brands fa-facebook hover:border-2 border-gray-950 p-1 rounded-full"></i>
+                            <i className="fa-solid fa-phone hover:border-2 border-gray-950 p-1 rounded-full"></i>
                             
                         </div>
                         <hr className="my-3 border-t-2 border-emerald-300" />
