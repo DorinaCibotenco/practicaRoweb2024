@@ -11,9 +11,7 @@ export default function Dashboard({ auth }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="overflow-hidden shadow-sm sm:rounded-lg" style={{
-                 background: 'linear-gradient(to bottom right, #6A9CFD,#2D82B5)',
-                }}>
+                    <div className="overflow-hidden shadow-sm sm:rounded-lg bg-zinc-300" >
                         <div className="p-6 text-gray-900">You're logged in!</div>
                     </div>
                 </div>

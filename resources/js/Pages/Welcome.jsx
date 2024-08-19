@@ -12,9 +12,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         <>
             <Head title="Welcome" />
             <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-            <div className="absolute inset-0" style={{
-                 background: 'linear-gradient(to bottom right, #D6E8EE, #97CADB,#018ABE)',
-                }}>
+            <div className="absolute inset-0 bg-zinc-200">
             
                 <div className="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                     <div className="relative w-full max-w-2xl px-6 lg:max-w-7xl">
@@ -72,9 +70,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </header>
 
                         
-                        <footer className="py-8 px-10 text-center text-sm text-black dark:text-white/70" style={{
-                 background: 'linear-gradient(to bottom right, #5EFCE8,#736EFE)',
-                }}>
+                        <footer className="py-8 px-10 text-center text-sm text-black dark:text-white/70 bg-zinc-300" >
                         <div className='space-x-4 mb-4'>
                             <Link className='hover:underline' >BLOG</Link>
                             <Link className='hover:underline' >EXPLORE</Link>
@@ -85,7 +81,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             <i className="fa-solid fa-phone hover:border-2 border-gray-950 p-1 rounded-full"></i>
                             
                         </div>
-                        <hr className="my-3 border-t-2 border-emerald-300" />
+                        <hr className="my-3 border-t-2 border-white" />
                             Laravel v{laravelVersion} (PHP v{phpVersion})
                         </footer>
                     </div>
