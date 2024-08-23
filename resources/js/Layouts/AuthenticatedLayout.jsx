@@ -33,7 +33,7 @@ export default function Authenticated({ user, header, children }) {
                         Categories
                     </Link>
                     <Link
-                        href={route('products.create')}
+                        href={route('products.list')}
                         className="py-2 px-4 text-black bg-zinc-100 rounded hover:bg-zinc-200 mb-2"
                     >
                         Products

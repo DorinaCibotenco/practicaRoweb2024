@@ -3,65 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
     public function list()
     {
-        $products = Product::orderBy('id', 'asc')->get();
-        return view('products.list', compact('products'));
+        
+        $products = Product::with('category')->paginate(5);
+
+        return Inertia::render('Products/List', [
+            'products' => $products
+        ]);
     }
+
     public function create()
     {
-        return view('products.add-edit', ['product' => new Product()]);
-    }
-    public function store(ProductRequest $request, Product $product = null)
-    {
-       
-        if (!$product) {
-            $product = new Product();
-        }
-
-        $imagePath = $product->image;
-
-        
-        if ($request->hasFile('image')) {
-            if ($imagePath) {
-                Storage::delete('public/' . $imagePath);
-            }
-            $imagePath = $request->file('image')->store('images', 'public');
-        }
-
-        
-        $product->fill([
-            'name' => $request->name,
-            'order' => $request->order,
-            'image' => $imagePath,
-            'price' => $request->price,
+        return Inertia::render('Products/AddEdit', [
+            'categories' => Category::select(['name', 'id'])->get()
         ]);
-        
-        $product->save();
-
-        $message = $product->wasRecentlyCreated ? 'Product created successfully.' : 'Product updated successfully.';
-        return redirect()->route('products.list')->with('success', $message);
     }
 
-    public function edit(Product $product)
+    public function update(Product $product)
     {
-        return view('products.add-edit', compact('product'));
+        $product->load('images');
+
+        return Inertia::render('Products/AddEdit', [
+            'categories' => Category::select(['name', 'id'])->get(),
+            'product' => $product,
+        ]);
+    }
+
+    public function store(ProductRequest $request, ?Product $product = null)
+    {
+        $request->updateOrCreate($product);
+
+        return redirect()->route('products.list')->with(['success' => 'Product saved.']);
     }
 
     public function delete(Product $product)
     {
-       
-        if ($product->image) {
-            Storage::delete('public/' . $product->image);
-        }
-
+        $product->images()->each(function ($productImage) {
+            Storage::disk('public')->delete($productImage->path);
+            $productImage->delete();
+        });
+        Storage::disk('public')->deleteDirectory('products/'.$product->id);
         $product->delete();
 
-        return redirect()->route('products.list')->with('success', 'Product deleted successfully.');
+        return redirect()->route('products.list')->with(['success' => 'Product deleted.']);
     }
 }

@@ -1,4 +1,6 @@
 import { Link, Head } from '@inertiajs/react';
+import Search from "@/Components/Search.jsx";
+
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const handleImageError = () => {
@@ -30,11 +32,11 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                     />
                                 </svg>
                             </div>
-                            <nav className="-mx-3 flex flex-1 justify-end">
+                            <nav className="-mx-3 flex flex-1 flex-col justify-end">
                                 {auth.user ? (
                                     <Link
                                         href={route('dashboard')}
-                                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white place-item-end"
                                     >
                                         Dashboard
                                     </Link>
@@ -58,6 +60,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                     </>
                                     
                                 )}
+                                <div className="container ml-0 mr-auto">
+                                <Search />
+                            </div>
                                 
                             </nav>
                             <div className='space-x-4 text-indigo-950 flex justify-end '>
@@ -65,7 +70,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                    <Link className='hover:text-indigo-700'>Services</Link>
                                    <Link className='hover:text-indigo-700'>About</Link>
                                    <Link className='hover:text-indigo-700 '><i class="fa-solid fa-phone mr-3 ml-7 border-2 border-indigo-950 p-1 rounded-full "></i>Contact </Link>
-                                </div>
+                            </div>
+
+                                
                                
                         </header>
 

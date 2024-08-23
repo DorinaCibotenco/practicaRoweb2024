@@ -1,18 +1,28 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, Link, useForm} from '@inertiajs/react';
+import {Head, Link,router, useForm} from '@inertiajs/react';
 import {Fragment} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencil, faPlus, faTrash} from "@fortawesome/free-solid-svg-icons";
 
 
+
+
 export default function List({categories}) {
     const {delete: deleteCategory} = useForm({});
 
-    // const handleDelete = (id) => {
-    //     console.log(id);
-    //
-    //     deleteCategory(route('categories.delete', [id]));
-    // }
+     const handleDelete = (id) => {
+        console.log(id);
+    
+      deleteCategory(route('categories.delete', [id]));
+     }
+
+    const handlePageChange = (url) => {
+        if (url) {
+            router.get(url, { preserveState: true });
+        }
+    };
+
+    const category = categories?.data || [];
 
     return (
         <AuthenticatedLayout>
@@ -22,7 +32,7 @@ export default function List({categories}) {
                     <div className={'text-xl font-bold'}>Categories</div>
 
                     <div className={'flex justify-end my-2'}>
-                        <Link href={route('categories.create')} className='border-2 rounded-lg border-green-500 py-2 px-2 font-bold text-white bg-green-500'>
+                        <Link href={route('categories.create')} className='border-2 rounded-lg border-green-500 py-2 px-2 font-bold text-white bg-green-500 hover:bg-green-400'>
                             <FontAwesomeIcon icon={faPlus} /> Add new category
                         </Link>
                     </div>
@@ -35,7 +45,7 @@ export default function List({categories}) {
                             <div className={'font-bold mb-3'}>Order</div>
                             <div className={'font-bold mb-3'}>Actions</div>
 
-                            {categories.map((category, index) => {
+                            {categories.data.map((category, index) => {
                                 return <Fragment key={index}>
                                     <div className={'mb-2 py-2 px-2 bg-zinc-50'}>{category.id}</div>
                                     <div className={'mb-2 bg-zinc-50'}>{category.name}</div>
@@ -45,14 +55,30 @@ export default function List({categories}) {
                                             <FontAwesomeIcon  icon={faPencil} className={'text-green-500'}/>
                                         </Link>
 
-                                        {/*TODO as form*/}
-                                        {/*<Link className={"ml-2"} onClick={() => handleDelete(category.id)}>*/}
-                                        {/*    <FontAwesomeIcon icon={faTrash} className={'text-red-600'}/>*/}
-                                        {/*</Link>*/}
+                                        <Link className={"ml-2"} onClick={() => handleDelete(product.id)}>
+                                            <FontAwesomeIcon icon={faTrash} className={'text-red-600'}/>
+                                        </Link>
+
                                     </div>
                                 </Fragment>
                             })}
                         </div>
+                    </div>
+                    <div className="flex justify-center items-center mt-4 space-x-4">
+                        <button
+                            onClick={() => router.get(categories.prev_page_url)}
+                            disabled={!categories.prev_page_url}
+                            className="border-2 rounded-full px-4 py-2 text-white bg-slate-700 hover:bg-slate-600"
+                        >
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button
+                            onClick={() => router.get(categories.next_page_url)}
+                            disabled={!categories.next_page_url}
+                            className="border-2 rounded-full px-4 py-2 text-white bg-slate-700 hover:bg-slate-600"
+                        >
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>

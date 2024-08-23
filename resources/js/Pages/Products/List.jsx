@@ -1,77 +1,98 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import {Head, Link, router, useForm} from '@inertiajs/react';
+import {Fragment} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPencil, faPlus, faTrash} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-const List = () => {
-    const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        fetchProducts();
-    }, []);
+export default function List({products}) {
+    const {delete: deleteEntry} = useForm({});
 
-    const fetchProducts = async () => {
-        try {
-            const response = await axios.get('/api/products');
-            setProducts(response.data);
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
+    const handleDelete = (id) => {
+        deleteEntry(route('products.delete', [id]), {
+            onFinish: () => {
+                router.reload({only: ['products']});
+            },
+        });
     };
 
-    const deleteProduct = async (id) => {
-        if (window.confirm('Are you sure you want to delete this product?')) {
-            try {
-                await axios.delete(`/api/products/${id}`);
-                fetchProducts();
-            } catch (error) {
-                console.error('Error deleting product:', error);
-            }
+    const handlePageChange = (url) => {
+        if (url) {
+            router.get(url, { preserveState: true });
         }
     };
 
     return (
-        <div className="container">
-            <Link to="/products/create" className="btn btn-primary mb-3">Add Product</Link>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Order</th>
-                        <th>Price</th>
-                        <th>Image</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {products.map(product => (
-                        <tr key={product.id}>
-                            <td>{product.id}</td>
-                            <td>{product.name}</td>
-                            <td>{product.order}</td>
-                            <td>{product.price}</td>
-                            <td>
-                                <img 
-                                    src={`/storage/${product.image}`} 
-                                    alt={product.name} 
-                                    width="50" 
-                                />
-                            </td>
-                            <td>
-                                <Link to={`/products/edit/${product.id}`} className="btn btn-warning">Edit</Link>
-                                <button 
-                                    onClick={() => deleteProduct(product.id)} 
-                                    className="btn btn-danger"
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
-};
+        <AuthenticatedLayout>
+            <Head title="Product list"/>
+            <div className="w-full">
+                <div className="py-4 px-4">
+                    <div className={'text-xl font-bold'}>Products</div>
 
-export default List;
+                    <div className={'flex justify-end my-2'}>
+                        <Link href={route('products.create')} className='border-2 rounded-lg border-green-500 py-2 px-2 font-bold text-white bg-green-500 hover:bg-green-400'>
+                            <FontAwesomeIcon icon={faPlus}/> Add new product
+                        </Link>
+                    </div>
+
+                    <div className="relative inline-block text-left">
+        <div>
+        <button id="dropdownButton" className="border-2 text-blue px-4 py-2 rounded-md flex items-center space-x-2 bg-blue">
+        <i className="fa-solid fa-caret-down"></i>
+                <span>Filter by category</span>
+            </button>
+        </div>
+
+    </div>
+
+
+                    <div className="mt-6 py-4 px-2 bg-stone-300 shadow-lg bg-zinc-100 mb-2">
+                        <div className={'grid grid-cols-5'}>
+                            <div className={'font-bold mb-3'}>ID</div>
+                            <div className={'font-bold mb-3'}>Name</div>
+                            <div className={'font-bold mb-3'}>Category</div>
+                            <div className={'font-bold mb-3'}>Price</div>
+                            <div className={'font-bold mb-3'}>Actions</div>
+
+                            {products.data.map((product, index) => {
+                                return <Fragment key={index}>
+                                    <div className={'mb-2 py-2 px-2 bg-zinc-50'}>{product.id}</div>
+                                    <div className={'mb-2 bg-zinc-50'}>{product.name}</div>
+                                    <div className={'mb-2 bg-zinc-50'}>{product.category.name}</div>
+                                    <div className={'mb-2 bg-zinc-50'}>{product.price}</div>
+                                    <div className={'mb-2 bg-zinc-50'}>
+                                        <Link href={route('products.update', [product.id])}>
+                                            <FontAwesomeIcon icon={faPencil} className={'text-green-500'}/>
+                                        </Link>
+
+                                        <Link className={"ml-2"} onClick={() => handleDelete(product.id)}>
+                                            <FontAwesomeIcon icon={faTrash} className={'text-red-600'}/>
+                                        </Link>
+                                    </div>
+                                </Fragment>
+                            })}
+                        </div>
+                    </div>
+                    <div className="flex justify-center items-center mt-4 space-x-4">
+                        <button
+                            onClick={() => router.get(products.prev_page_url)}
+                            disabled={!products.prev_page_url}
+                            className="border-2 rounded-full px-4 py-2 text-white bg-slate-700 hover:bg-slate-600"
+                        >
+                            <i className="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button
+                            onClick={() => router.get(products.next_page_url)}
+                            disabled={!products.next_page_url}
+                            className="border-2 rounded-full px-4 py-2 text-white bg-slate-700 hover:bg-slate-600"
+                        >
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </AuthenticatedLayout>
+    );
+}

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\SearchController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -27,6 +28,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+Route::get('/search', [SearchController::class, 'search'])->name('search');    
+
     Route::group([
         'prefix' => 'categories',
     ], function () {
@@ -42,11 +45,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     ], function () {
         Route::get('/', [ProductController::class, 'list'])->name('products.list');
         Route::get('/create', [ProductController::class, 'create'])->name('products.create');
-        Route::get('/edit/{product}', [ProductController::class, 'edit'])->name('products.edit');
-        Route::post('/store/{product?}', [ProductController::class, 'store'])->name('products.store');
-        Route::delete('/delete/{product}', [ProductController::class, 'delete'])->name('products.delete');
+        Route::get('/edit/{product}', [ProductController::class, 'update'])->name('products.update');
+        Route::post('store/{product?}', [ProductController::class, 'store'])->name('products.store');
+        Route::delete('delete/{product}', [ProductController::class, 'delete'])->name('products.delete');
     });
+});
 
-    });
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
