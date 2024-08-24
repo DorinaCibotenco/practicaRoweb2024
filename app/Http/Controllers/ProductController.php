@@ -7,17 +7,31 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
-    public function list()
+    public function list(Request $request)
     {
         
-        $products = Product::with('category')->paginate(5);
+        $selectedCategoryId = $request->input('category', null); // Capture the selected category
 
-        return Inertia::render('Products/List', [
-            'products' => $products
+        $query = Product::query();
+    
+        if ($selectedCategoryId !== null) {
+            $query->where('category_id', $selectedCategoryId);
+        }
+    
+        $products = $query->paginate(5);
+        $categories = Category::all();
+    
+        return inertia('Products/List', [
+            'products' => $products,
+            'categories' => $categories,
+            'selectedCategoryId' => $selectedCategoryId, // Pass the selected category ID
         ]);
+    
     }
 
     public function create()

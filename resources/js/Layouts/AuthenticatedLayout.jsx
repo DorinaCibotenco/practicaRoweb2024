@@ -4,6 +4,8 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faBox } from '@fortawesome/free-solid-svg-icons';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -17,25 +19,29 @@ export default function Authenticated({ user, header, children }) {
                 <div className="flex flex-col h-full">
                     <div className="flex items-center mb-4">
                         <Link href="/">
-                            <ApplicationLogo className="block h-9 w-auto fill-current text-zinc-800" />
+                        <FontAwesomeIcon icon={faHome} className="text-white rounded-full bg-violet-700 hover:bg-violet-600 text-2xl py-3 px-3 mb-5 mr-2" />
+
                         </Link>
                     </div>
                     <Link
                         href={route('dashboard')}
-                        className="py-2 px-4 text-black bg-zinc-100 rounded hover:bg-zinc-200 mb-2"
+                        className="py-3 px-4 text-white text-bold bg-violet-700 rounded-lg hover:bg-violet-600 mb-2"
                     >
+                        <i className="fa-solid fa-table-columns pr-3"></i>
                         Dashboard
                     </Link>
                     <Link
                         href={route('categories.list')}
-                        className="py-2 px-4 text-black bg-zinc-100 rounded hover:bg-zinc-200 mb-2"
+                        className="py-2 px-4 text-black hover:text-zinc-600 mb-2 mt-7"
                     >
+                        <i className="fa-solid fa-list pr-3"></i>
                         Categories
                     </Link>
                     <Link
                         href={route('products.list')}
-                        className="py-2 px-4 text-black bg-zinc-100 rounded hover:bg-zinc-200 mb-2"
+                        className="py-2 px-4 text-black hover:text-zinc-600 mb-2"
                     >
+                        <i className="fa-solid fa-box pr-3"></i>
                         Products
                     </Link>
 

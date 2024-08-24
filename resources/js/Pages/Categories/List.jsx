@@ -29,7 +29,7 @@ export default function List({categories}) {
             <Head title="Category list"/>
             <div className="w-full">
                 <div className="py-4 px-4">
-                    <div className={'text-xl font-bold'}>Categories</div>
+                    <div className={'text-xl font-bold bg-white px-10 py-6 rounded-lg'}>Categories</div>
 
                     <div className={'flex justify-end my-2'}>
                         <Link href={route('categories.create')} className='border-2 rounded-lg border-green-500 py-2 px-2 font-bold text-white bg-green-500 hover:bg-green-400'>
@@ -38,7 +38,7 @@ export default function List({categories}) {
                     </div>
 
 
-                    <div className="mt-6 py-4 px-2 bg-stone-300 shadow-lg bg-zinc-100 mb-2">
+                    <div className="mt-6 py-4 px-2 bg-stone-300 shadow-lg rounded-lg bg-zinc-100 mb-2">
                         <div className={'grid grid-cols-4'}>
                             <div className={'font-bold mb-3'}>ID</div>
                             <div className={'font-bold mb-3'}>Name</div>
@@ -68,14 +68,14 @@ export default function List({categories}) {
                         <button
                             onClick={() => router.get(categories.prev_page_url)}
                             disabled={!categories.prev_page_url}
-                            className="border-2 rounded-full px-4 py-2 text-white bg-slate-700 hover:bg-slate-600"
+                            className="border-2 rounded-full px-4 py-2 text-white bg-violet-700 hover:bg-violet-600"
                         >
                             <i class="fa-solid fa-chevron-left"></i>
                         </button>
                         <button
                             onClick={() => router.get(categories.next_page_url)}
                             disabled={!categories.next_page_url}
-                            className="border-2 rounded-full px-4 py-2 text-white bg-slate-700 hover:bg-slate-600"
+                            className="border-2 rounded-full px-4 py-2 text-white bg-violet-700 hover:bg-violet-600"
                         >
                             <i class="fa-solid fa-chevron-right"></i>
                         </button>
