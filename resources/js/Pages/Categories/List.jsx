@@ -68,14 +68,14 @@ export default function List({categories}) {
                         <button
                             onClick={() => router.get(categories.prev_page_url)}
                             disabled={!categories.prev_page_url}
-                            className="border-2 rounded-full px-4 py-2 text-white bg-violet-700 hover:bg-violet-600"
+                            className="border-2 rounded-full px-4 py-2 text-white bg-cyan-950 hover:bg-cyan-800"
                         >
                             <i class="fa-solid fa-chevron-left"></i>
                         </button>
                         <button
                             onClick={() => router.get(categories.next_page_url)}
                             disabled={!categories.next_page_url}
-                            className="border-2 rounded-full px-4 py-2 text-white bg-violet-700 hover:bg-violet-600"
+                            className="border-2 rounded-full px-4 py-2 text-white bg-cyan-950 hover:bg-cyan-800"
                         >
                             <i class="fa-solid fa-chevron-right"></i>
                         </button>

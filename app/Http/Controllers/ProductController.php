@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function list(Request $request)
     {
         
-        $selectedCategoryId = $request->input('category', null); // Capture the selected category
+        $selectedCategoryId = $request->input('category', null);
 
         $query = Product::query();
     
@@ -29,7 +29,7 @@ class ProductController extends Controller
         return inertia('Products/List', [
             'products' => $products,
             'categories' => $categories,
-            'selectedCategoryId' => $selectedCategoryId, // Pass the selected category ID
+            'selectedCategoryId' => $selectedCategoryId,
         ]);
     
     }

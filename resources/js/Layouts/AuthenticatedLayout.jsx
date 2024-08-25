@@ -19,13 +19,13 @@ export default function Authenticated({ user, header, children }) {
                 <div className="flex flex-col h-full">
                     <div className="flex items-center mb-4">
                         <Link href="/">
-                        <FontAwesomeIcon icon={faHome} className="text-white rounded-full bg-violet-700 hover:bg-violet-600 text-2xl py-3 px-3 mb-5 mr-2" />
+                        <FontAwesomeIcon icon={faHome} className="text-white rounded-full bg-cyan-950 hover:bg-cyan-800 text-2xl py-3 px-3 mb-5 mr-2" />
 
                         </Link>
                     </div>
                     <Link
                         href={route('dashboard')}
-                        className="py-3 px-4 text-white text-bold bg-violet-700 rounded-lg hover:bg-violet-600 mb-2"
+                        className="py-3 px-4 text-white text-bold bg-cyan-950 rounded-lg hover:bg-cyan-800 mb-2"
                     >
                         <i className="fa-solid fa-table-columns pr-3"></i>
                         Dashboard
