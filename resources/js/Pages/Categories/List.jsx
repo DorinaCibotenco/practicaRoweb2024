@@ -7,14 +7,18 @@ import {faPencil, faPlus, faTrash} from "@fortawesome/free-solid-svg-icons";
 
 
 
-export default function List({categories}) {
-    const {delete: deleteCategory} = useForm({});
+export default function List({categories, flash}) {
+    const {delete: deleteEntry} = useForm({});
 
      const handleDelete = (id) => {
         console.log(id);
     
-      deleteCategory(route('categories.delete', [id]));
-     }
+      deleteEntry(route('categories.delete', [id]),{
+        onFinish: () => {
+            router.reload({only: ['categories']})
+        },
+      });
+     };
 
     const handlePageChange = (url) => {
         if (url) {

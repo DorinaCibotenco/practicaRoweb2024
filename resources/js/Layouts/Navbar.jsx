@@ -3,10 +3,19 @@ import { Link, useForm } from '@inertiajs/react';
 import ApplicationLogo from "@/Components/ApplicationLogo.jsx";
 import axios from 'axios';
 
-export default function Navbar({ auth, products = { data: [], links: [] }, categories = [] }) {
+export default function Navbar({ auth, products = { data: [], links: [] }, categories = [], onProductsUpdate }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategoryId, setSelectedCategoryId] = useState('');
     const [filteredProducts, setFilteredProducts] = useState(products.data);
+    
+    const CATEGORIES = [
+        { id: '1', name: 'Electronics' },
+        { id: '2', name: 'Home' },
+        { id: '3', name: 'Clothing' },
+        { id: '4', name: 'Kitchen' },
+        { id: '5', name: 'Tech' },
+       
+    ];
 
     const fetchProducts = async () => {
         try {
@@ -16,10 +25,18 @@ export default function Navbar({ auth, products = { data: [], links: [] }, categ
                     category: selectedCategoryId
                 }
             });
-            console.log(response.data); 
-            setFilteredProducts(response.data.products.data);
+
+            if (response.data && response.data.products && response.data.products.data) {
+                setFilteredProducts(response.data.products.data);
+                if (onProductsUpdate) onProductsUpdate(response.data.products.data); 
+            } else {
+                setFilteredProducts([]);
+                if (onProductsUpdate) onProductsUpdate([]);
+            }
         } catch (error) {
             console.error("Eroare la preluarea produselor:", error);
+            setFilteredProducts([]);
+            if (onProductsUpdate) onProductsUpdate([]); 
         }
     };
 
@@ -29,6 +46,7 @@ export default function Navbar({ auth, products = { data: [], links: [] }, categ
 
     const handleCategoryChange = (e) => {
         setSelectedCategoryId(e.target.value);
+        setSearchQuery('');
     };
 
     const [navOpen, setNavOpen] = useState(false);
@@ -153,14 +171,14 @@ export default function Navbar({ auth, products = { data: [], links: [] }, categ
                         value={selectedCategoryId || ''}
                     >
                         <option value="">Filter by category</option>
-                        {categories.map((category) => (
+                        {CATEGORIES.map((category) => (
                             <option key={category.id} value={category.id}>
                                 {category.name}
                             </option>
                         ))}
                     </select>
                     <button type="submit" className="bg-cyan-800 mr-5 text-white p-2 rounded-full">
-                    <i class="fa-solid fa-magnifying-glass py-2 px-2"></i>
+                        <i className="fa-solid fa-magnifying-glass py-2 px-2"></i>
                     </button>
                 </form>
             </div>

@@ -1,11 +1,44 @@
 import { Link, Head } from '@inertiajs/react';
-import Search from "@/Components/Search.jsx";
+import { useState, useEffect } from 'react';
 import Footer from '../Layouts/Footer.jsx';
 import Navbar from '../Layouts/Navbar.jsx';
 import {Fragment} from "react";
 
 export default function Welcome({ auth, products = { data: [], links: [] } }) {
     console.log(products);
+    const [displayedProducts, setDisplayedProducts] = useState(products.data);
+    const handleProductsUpdate = (updatedProducts) => {
+        setDisplayedProducts(updatedProducts);
+    };
+     products = {
+        data: [
+            {
+                id: 1,
+                name: 'MacBook 13',
+                category: { name: 'Electronics' },
+                price: 1500,
+                images: [{ url: 'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFjYm9va3xlbnwwfHwwfHx8MA%3D%3D' }]
+            },
+            {
+                id: 2,
+                name: 'Lamp',
+                category: { name: 'Home' },
+                price: 7,
+                images: [{ url: 'https://m.media-amazon.com/images/I/81dGkYK8BlL.jpg' }]
+            },
+            {
+                id: 3,
+                name: 'T-shirt',
+                category: { name: 'Clothes' },
+                price: 15,
+                images: [{ url: 'https://img.freepik.com/free-vector/realistic-t-shirt-mockup-color-icon-set-white-black-pink-gray-yellow-red-green-orange-dark-green-blue-light-blue-purple-brown-colors-vector-illustration_1284-79574.jpg' }]
+            }
+        ],
+        links: [
+            { url: '/page/1', label: '1', active: true },
+            { url: '/page/2', label: '2', active: false }
+        ]
+    };
 
     return (<>
         <Head title="Welcome"/>
@@ -27,6 +60,7 @@ export default function Welcome({ auth, products = { data: [], links: [] } }) {
                         </div>
                     ))}
                 </div>
+                
                 <div className={'flex justify-center mt-4'}>
                     {products.links.map((link, key) => (
                         <Fragment key={key}>
