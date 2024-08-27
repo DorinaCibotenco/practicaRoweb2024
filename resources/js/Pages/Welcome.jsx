@@ -29,7 +29,7 @@ export default function Welcome({ auth, products = { data: [], links: [] } }) {
             {
                 id: 3,
                 name: 'T-shirt',
-                category: { name: 'Clothes' },
+                category: { name: 'Clothing' },
                 price: 15,
                 images: [{ url: 'https://img.freepik.com/free-vector/realistic-t-shirt-mockup-color-icon-set-white-black-pink-gray-yellow-red-green-orange-dark-green-blue-light-blue-purple-brown-colors-vector-illustration_1284-79574.jpg' }]
             }
@@ -42,14 +42,14 @@ export default function Welcome({ auth, products = { data: [], links: [] } }) {
 
     return (<>
         <Head title="Welcome"/>
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen bg-cyan-50">
             <Navbar auth={auth}/>
             <main className="container flex-1 mx-auto">
-                <h1 className={'text-3xl mt-6 mb-4'}>Products</h1>
+                <h1 className={'text-3xl text-cyan-900 font-bold mt-6 mb-4 px-6 py-3 bg-white rounded-lg'}>Products</h1>
                 <div className="grid grid-cols-3">
                     {products.data.map((product) => (
-                        <div className={'w-full p-4'} key={product.id}>
-                            <div className={'bg-blue-300 border-4 border-blue-600 rounded-lg'}>
+                        <div className={'w-full p-5'} key={product.id}>
+                            <div className={'bg-cyan-100 border-4 border-cyan-100 rounded-lg'}>
                                 <div className="flex items-center justify-center overflow-hidden h-40">
                                     {product.images.length > 0 && <img src={product.images[0].url} alt={''} className={'w-full'} height={200}/>}
                                 </div>
@@ -64,10 +64,10 @@ export default function Welcome({ auth, products = { data: [], links: [] } }) {
                 <div className={'flex justify-center mt-4'}>
                     {products.links.map((link, key) => (
                         <Fragment key={key}>
-                            {link.url && !link.active && <Link className={'bg-blue-500 p-2 text-white mr-2'} href={link.url}>
+                            {link.url && !link.active && <Link className={'bg-cyan-950 py-3 px-4 text-white mr-2 rounded-full hover:bg-cyan-800'} href={link.url}>
                                 <span dangerouslySetInnerHTML={{__html: link.label}}/>
                             </Link>}
-                            {link.url && link.active && <span className={'bg-gray-500 p-2 text-white mr-2'}>{link.label}</span>}
+                            {link.url && link.active && <span className={'bg-cyan-950 py-3 px-4 text-white mr-2 rounded-full hover:bg-cyan-800'}>{link.label}</span>}
                         </Fragment>
                     ))}
                 </div>
